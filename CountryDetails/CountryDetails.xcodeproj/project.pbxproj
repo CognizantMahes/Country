@@ -76,6 +76,35 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		4D40E1CD240256D800C1DA41 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				4D8FD9B424013B0100ED7F8D /* CountryDetailsViewController.swift */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		4D40E1CE240256E700C1DA41 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		4D40E1CF240256F600C1DA41 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		4D40E1D02402570400C1DA41 /* Network */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Network;
+			sourceTree = "<group>";
+		};
 		4D8FD9A424013B0100ED7F8D = {
 			isa = PBXGroup;
 			children = (
@@ -99,9 +128,12 @@
 		4D8FD9AF24013B0100ED7F8D /* CountryDetails */ = {
 			isa = PBXGroup;
 			children = (
+				4D40E1D02402570400C1DA41 /* Network */,
+				4D40E1CF240256F600C1DA41 /* Model */,
+				4D40E1CE240256E700C1DA41 /* ViewModel */,
+				4D40E1CD240256D800C1DA41 /* Controller */,
 				4D8FD9B024013B0100ED7F8D /* AppDelegate.swift */,
 				4D8FD9B224013B0100ED7F8D /* SceneDelegate.swift */,
-				4D8FD9B424013B0100ED7F8D /* CountryDetailsViewController.swift */,
 				4D8FD9B624013B0100ED7F8D /* Main.storyboard */,
 				4D8FD9B924013B0200ED7F8D /* Assets.xcassets */,
 				4D8FD9BB24013B0200ED7F8D /* LaunchScreen.storyboard */,
