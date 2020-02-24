@@ -11,8 +11,8 @@ import UIKit
 class CountryDetailsViewController: UIViewController {
 
     let detailsTableView = UITableView() // view
-    let detailsModel = DetailsModel()
-    var tableArray: [Row] = []
+    let detailsModel = DetailsViewModel()
+    var tableArray: [Topics] = []
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
@@ -46,7 +46,7 @@ class CountryDetailsViewController: UIViewController {
         detailsModel.fetchDetailsList()
         detailsModel.refreshTableView = {
             DispatchQueue.main.async{
-                self.tableArray = self.detailsModel.rowsArray!
+                self.tableArray = self.detailsModel.detailsViewModel!.topicsArray
                 self.detailsTableView.reloadData()
                 self.navigationItem.title = ""
                 print("RELOAD table view")
@@ -57,11 +57,12 @@ class CountryDetailsViewController: UIViewController {
 }
 extension CountryDetailsViewController: UITableViewDataSource{
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 10
+        return self.tableArray.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "DetailsTableViewCell", for: indexPath) as! DetailsTableViewCell
+        cell.topics = self.tableArray[indexPath.row]
                 return cell
     }
     
