@@ -16,8 +16,6 @@ func imageDownloaded()
 class DetailsTableViewCell: UITableViewCell{
     
     var imageDelegate: ImageDelegate?
-
-    var downloadManager = AsyncImageView()
     
     var topics: Topics?{
         didSet{
@@ -28,9 +26,11 @@ class DetailsTableViewCell: UITableViewCell{
             
         }
     }
+    
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         self.contentView.backgroundColor = UIColor.white
+       
         //adding container view which holds all the elements
         self.contentView.addSubview(containerView)
         containerView.leadingAnchor.constraint(equalTo:self.contentView.leadingAnchor, constant:5).isActive = true
@@ -61,8 +61,8 @@ class DetailsTableViewCell: UITableViewCell{
         descLabel.trailingAnchor.constraint(equalTo:titleLabel.trailingAnchor).isActive = true
         descLabel.bottomAnchor.constraint(equalTo:containerView.bottomAnchor,constant: -2).isActive = true
         
-        print(UIScreen.main.bounds.size.width)
-        print(UIScreen.main.bounds.size.height)
+        //print(UIScreen.main.bounds.size.width)
+       // print(UIScreen.main.bounds.size.height)
     }
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)

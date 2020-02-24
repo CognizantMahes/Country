@@ -29,7 +29,6 @@ struct Topics {
 
 
 protocol DetailsViewModelDelegate {
-    func updateImage()
     func updateUI()
 }
 
@@ -49,17 +48,8 @@ class DetailsViewModel{
         }
     }
     
-    var navigationTitle: String?{
-        didSet{
-            print("Updagte UI")
-        }
-    }
-    
     let networkMgr = NetworkManager()
-    func imageDownloadedSuccess(){
-        print("relodd")
-        delegate?.updateImage()
-    }
+    
     func fetchImage(url: String, completionHandler: @escaping (UIImage?, Error?) -> Void){
         //networkMgr.fetchImage
         currentUrl = url
@@ -78,12 +68,8 @@ class DetailsViewModel{
                 }
             if let downloadedImage = UIImage(data: data) {
                 self.imageCache.setObject(downloadedImage, forKey: url as NSString)
-                    
                 completionHandler(downloadedImage, error)
             }
-            
-                    
-                
             })
         }
     }
@@ -99,9 +85,8 @@ class DetailsViewModel{
                     topicsArray.append(topics)
                 }
             }
-            self.detailsViewModel = TopicsViewModel(navigationTitle: "", topicsArray: topicsArray)
-            //self.rowsArray = country?.rows
-
+            let titleStr = country?.title
+            self.detailsViewModel = TopicsViewModel(navigationTitle: titleStr, topicsArray: topicsArray)
         })
     }
     var refreshTableView: (() -> ())?

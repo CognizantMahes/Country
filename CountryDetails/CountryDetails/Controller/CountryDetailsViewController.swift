@@ -10,17 +10,11 @@ import UIKit
 
 class CountryDetailsViewController: UIViewController, DetailsViewModelDelegate {
    
-    func updateImage() {
-        self.detailsTableView.reloadData()
-        print("Update Ui image")
-    }
     
     func updateUI() {
-        //self.detailsTableView.reloadData()
         self.tableArray = self.detailsModel.detailsViewModel!.topicsArray
         self.detailsTableView.reloadData()
-        self.navigationItem.title = ""
-        print("Update Ui")
+        self.navigationItem.title = self.detailsModel.detailsViewModel?.navigationTitle
     }
     
 
@@ -28,6 +22,7 @@ class CountryDetailsViewController: UIViewController, DetailsViewModelDelegate {
     let detailsModel = DetailsViewModel()
     var refreshControl = UIRefreshControl()
     var tableArray: [Topics] = []
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
@@ -95,6 +90,7 @@ extension CountryDetailsViewController: UITableViewDataSource, ImageDelegate{
         let cell = tableView.dequeueReusableCell(withIdentifier: "DetailsTableViewCell", for: indexPath) as! DetailsTableViewCell
         cell.topics = self.tableArray[indexPath.row]
         cell.imageDelegate = self
+        cell.iconImageView.image = UIImage(named: "contacts")
         let imageURL = self.tableArray[indexPath.row].imageHrefString
         if imageURL != "null" {
             detailsModel.fetchImage(url:imageURL , completionHandler: { (image, error) -> Void in
@@ -110,10 +106,7 @@ extension CountryDetailsViewController: UITableViewDataSource, ImageDelegate{
         {
             cell.iconImageView.image = UIImage(named: "contacts")
         }
-        
-                return cell
+        return cell
     }
-    
-    
 }
 
