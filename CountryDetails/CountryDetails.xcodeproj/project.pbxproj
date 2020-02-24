@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4D40E1D224025D1C00C1DA41 /* Country.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D40E1D124025D1C00C1DA41 /* Country.swift */; };
+		4D40E1D62403B3E800C1DA41 /* Directions.json in Resources */ = {isa = PBXBuildFile; fileRef = 4D40E1D52403B3E800C1DA41 /* Directions.json */; };
+		4D40E1D82403D23500C1DA41 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D40E1D72403D23500C1DA41 /* NetworkManager.swift */; };
+		4D40E1DA2403D39400C1DA41 /* DetailsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D40E1D92403D39400C1DA41 /* DetailsModel.swift */; };
 		4D8FD9B124013B0100ED7F8D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D8FD9B024013B0100ED7F8D /* AppDelegate.swift */; };
 		4D8FD9B324013B0100ED7F8D /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D8FD9B224013B0100ED7F8D /* SceneDelegate.swift */; };
 		4D8FD9B524013B0100ED7F8D /* CountryDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D8FD9B424013B0100ED7F8D /* CountryDetailsViewController.swift */; };
@@ -35,6 +39,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		4D40E1D124025D1C00C1DA41 /* Country.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Country.swift; sourceTree = "<group>"; };
+		4D40E1D52403B3E800C1DA41 /* Directions.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = Directions.json; sourceTree = SOURCE_ROOT; };
+		4D40E1D72403D23500C1DA41 /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
+		4D40E1D92403D39400C1DA41 /* DetailsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailsModel.swift; sourceTree = "<group>"; };
 		4D8FD9AD24013B0100ED7F8D /* CountryDetails.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CountryDetails.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4D8FD9B024013B0100ED7F8D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		4D8FD9B224013B0100ED7F8D /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -87,6 +95,7 @@
 		4D40E1CE240256E700C1DA41 /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
+				4D40E1D92403D39400C1DA41 /* DetailsModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -94,6 +103,7 @@
 		4D40E1CF240256F600C1DA41 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				4D40E1D124025D1C00C1DA41 /* Country.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -101,6 +111,7 @@
 		4D40E1D02402570400C1DA41 /* Network */ = {
 			isa = PBXGroup;
 			children = (
+				4D40E1D72403D23500C1DA41 /* NetworkManager.swift */,
 			);
 			path = Network;
 			sourceTree = "<group>";
@@ -128,6 +139,7 @@
 		4D8FD9AF24013B0100ED7F8D /* CountryDetails */ = {
 			isa = PBXGroup;
 			children = (
+				4D40E1D52403B3E800C1DA41 /* Directions.json */,
 				4D40E1D02402570400C1DA41 /* Network */,
 				4D40E1CF240256F600C1DA41 /* Model */,
 				4D40E1CE240256E700C1DA41 /* ViewModel */,
@@ -267,6 +279,7 @@
 				4D8FD9BD24013B0200ED7F8D /* LaunchScreen.storyboard in Resources */,
 				4D8FD9BA24013B0200ED7F8D /* Assets.xcassets in Resources */,
 				4D8FD9B824013B0100ED7F8D /* Main.storyboard in Resources */,
+				4D40E1D62403B3E800C1DA41 /* Directions.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -291,8 +304,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4D40E1D224025D1C00C1DA41 /* Country.swift in Sources */,
 				4D8FD9B524013B0100ED7F8D /* CountryDetailsViewController.swift in Sources */,
+				4D40E1D82403D23500C1DA41 /* NetworkManager.swift in Sources */,
 				4D8FD9B124013B0100ED7F8D /* AppDelegate.swift in Sources */,
+				4D40E1DA2403D39400C1DA41 /* DetailsModel.swift in Sources */,
 				4D8FD9B324013B0100ED7F8D /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

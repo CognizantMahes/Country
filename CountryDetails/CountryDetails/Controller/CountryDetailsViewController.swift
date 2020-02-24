@@ -11,7 +11,8 @@ import UIKit
 class CountryDetailsViewController: UIViewController {
 
     let detailsTableView = UITableView() // view
-    
+    let detailsModel = DetailsModel()
+    var tableArray: [Row] = []
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
@@ -34,9 +35,24 @@ class CountryDetailsViewController: UIViewController {
         detailsTableView.register(UITableViewCell.self, forCellReuseIdentifier: "DetailsTableViewCell")
        
         //Set the navigation title
-        navigationItem.title = "Canada"
-    }
+        navigationItem.title = ""
+        
+        fetchDetailsAndRefreshUI()
 
+        
+    }
+    
+    func fetchDetailsAndRefreshUI(){
+        detailsModel.fetchDetailsList()
+        detailsModel.refreshTableView = {
+            DispatchQueue.main.async{
+                self.tableArray = self.detailsModel.rowsArray!
+                self.detailsTableView.reloadData()
+                self.navigationItem.title = ""
+                print("RELOAD table view")
+            }
+        }
+    }
 
 }
 extension CountryDetailsViewController: UITableViewDataSource{
