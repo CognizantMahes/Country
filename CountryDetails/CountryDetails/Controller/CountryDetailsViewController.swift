@@ -32,7 +32,7 @@ class CountryDetailsViewController: UIViewController {
         // detailsTableView.delegate = self
         
         //register cell
-        detailsTableView.register(UITableViewCell.self, forCellReuseIdentifier: "DetailsTableViewCell")
+        detailsTableView.register(DetailsTableViewCell.self, forCellReuseIdentifier: "DetailsTableViewCell")
        
         //Set the navigation title
         navigationItem.title = ""
@@ -61,10 +61,7 @@ extension CountryDetailsViewController: UITableViewDataSource{
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "DetailsTableViewCell", for: indexPath)
-
-        cell.textLabel?.text = "Success"
-
+        let cell = tableView.dequeueReusableCell(withIdentifier: "DetailsTableViewCell", for: indexPath) as! DetailsTableViewCell
                 return cell
     }
     
