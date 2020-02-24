@@ -8,6 +8,8 @@
 
 import Foundation
 import UIKit
+
+
 class AsyncImageView: UIImageView {
     
     private var currentUrl: String? //Get a hold of the latest request url
@@ -15,12 +17,11 @@ class AsyncImageView: UIImageView {
     var detailsViewModel = DetailsViewModel()
     override var image: UIImage?{
         didSet{
-            detailsViewModel.imageDownloadedSuccess()
-            
+            detailsViewModel.refreshTableView?()
         }
     }
-    
-    public func imageFromServerURL(url: String){
+        
+    public func imageFromServerURL(url: String, completion: @escaping (Bool?) -> Void) {
         currentUrl = url
         
         if(imageCache.object(forKey: url as NSString) != nil){
@@ -31,15 +32,16 @@ class AsyncImageView: UIImageView {
             
             detailsViewModel.fetchImage(url: url, completionHandler: { (data, error) -> Void in
                 if error == nil {
-                    DispatchQueue.main.async{
-                        if let downloadedImage = UIImage(data: data!) {
-                            if (url == self.currentUrl) {//Only cache and set the image view when the downloaded image is the one from last request
-                                self.imageCache.setObject(downloadedImage, forKey: url as NSString)
-                                self.image = downloadedImage
-                            }
-                            
-                        }
-                    }
+//                    DispatchQueue.main.async{
+//                        if let downloadedImage = UIImage(data: data!) {
+//                            if (url == self.currentUrl) {//Only cache and set the image view when the downloaded image is the one from last request
+//                                self.imageCache.setObject(downloadedImage, forKey: url as NSString)
+//                                self.image = downloadedImage
+//                                completion(true)
+//                            }
+//                            
+//                        }
+//                    }
                     
                     
                 }

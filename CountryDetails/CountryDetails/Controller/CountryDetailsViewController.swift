@@ -8,7 +8,21 @@
 
 import UIKit
 
-class CountryDetailsViewController: UIViewController {
+class CountryDetailsViewController: UIViewController, DetailsViewModelDelegate {
+   
+    func updateImage() {
+        self.detailsTableView.reloadData()
+        print("Update Ui image")
+    }
+    
+    func updateUI() {
+        //self.detailsTableView.reloadData()
+        self.tableArray = self.detailsModel.detailsViewModel!.topicsArray
+        self.detailsTableView.reloadData()
+        self.navigationItem.title = ""
+        print("Update Ui")
+    }
+    
 
     let detailsTableView = UITableView() // view
     let detailsModel = DetailsViewModel()
@@ -53,19 +67,26 @@ class CountryDetailsViewController: UIViewController {
     
     }
     func fetchDetailsAndRefreshUI(){
+        detailsModel.delegate = self
         detailsModel.fetchDetailsList()
         detailsModel.refreshTableView = {
-            DispatchQueue.main.async{
                 self.tableArray = self.detailsModel.detailsViewModel!.topicsArray
                 self.detailsTableView.reloadData()
                 self.navigationItem.title = ""
                 print("RELOAD table view")
-            }
+            
+        }
+        detailsModel.refreshTableView = {
+            self.detailsTableView.reloadData()
         }
     }
 
 }
-extension CountryDetailsViewController: UITableViewDataSource{
+extension CountryDetailsViewController: UITableViewDataSource, ImageDelegate{
+    func imageDownloaded() {
+        detailsTableView.reloadData()
+    }
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return self.tableArray.count
     }
@@ -73,8 +94,23 @@ extension CountryDetailsViewController: UITableViewDataSource{
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "DetailsTableViewCell", for: indexPath) as! DetailsTableViewCell
         cell.topics = self.tableArray[indexPath.row]
-        //cell.iconImageView.image = DetailsViewModel.fetchImage()
-            //tableArray[indexPath.row].imageHrefString
+        cell.imageDelegate = self
+        let imageURL = self.tableArray[indexPath.row].imageHrefString
+        if imageURL != "null" {
+            detailsModel.fetchImage(url:imageURL , completionHandler: { (image, error) -> Void in
+                    if error == nil {
+                        DispatchQueue.main.async{
+                            cell.iconImageView.image = image
+                            print("index")
+                            print(indexPath.row)
+                        }
+                    }
+            })
+        }else
+        {
+            cell.iconImageView.image = UIImage(named: "contacts")
+        }
+        
                 return cell
     }
     

@@ -9,18 +9,23 @@
 import Foundation
 import UIKit
 
+protocol ImageDelegate {
+func imageDownloaded()
+}
+
 class DetailsTableViewCell: UITableViewCell{
     
-    
+    var imageDelegate: ImageDelegate?
+
     var downloadManager = AsyncImageView()
+    
     var topics: Topics?{
         didSet{
             guard let topicItem = topics else {return}
             titleLabel.text = topicItem.title
             descLabel.text = topicItem.subTitle
-        
-            downloadManager.imageFromServerURL(url: topicItem.imageHrefString)
-            iconImageView.image = downloadManager.image
+            
+            
         }
     }
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {

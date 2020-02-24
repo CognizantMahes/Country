@@ -7,7 +7,7 @@
 //
 
 import Foundation
-
+import UIKit
 struct TopicsViewModel {
     var navigationTitle: String
     var topicsArray: [Topics]
@@ -24,13 +24,28 @@ struct Topics {
     var title: String
     var subTitle: String
     var imageHrefString: String
+    var image: UIImage?
 }
+
+
+protocol DetailsViewModelDelegate {
+    func updateImage()
+    func updateUI()
+}
+
+
 class DetailsViewModel{
+    private var currentUrl: String? //Get a hold of the latest request url
+    var imageCache = NSCache<NSString, UIImage>()
+    
+    var delegate: DetailsViewModelDelegate?
     
     var detailsViewModel: TopicsViewModel? {
         didSet{
-            print("Updagte")
-            self.refreshTableView?()
+            DispatchQueue.main.async{
+            print("Update")
+                self.delegate?.updateUI()
+            }
         }
     }
     
@@ -39,19 +54,20 @@ class DetailsViewModel{
             print("Updagte UI")
         }
     }
-    var rowsArray: [Row]?{
-        didSet{
-            print("Updagte")
-            self.refreshTableView?()
-        }
-    }
     
     let networkMgr = NetworkManager()
     func imageDownloadedSuccess(){
-        self.refreshTableView?()
+        print("relodd")
+        delegate?.updateImage()
     }
-    func fetchImage(url: String, completionHandler: @escaping (Data?, Error?) -> Void){
+    func fetchImage(url: String, completionHandler: @escaping (UIImage?, Error?) -> Void){
         //networkMgr.fetchImage
+        currentUrl = url
+        
+        if(imageCache.object(forKey: url as NSString) != nil){
+            let image = imageCache.object(forKey: url as NSString)
+            completionHandler(image , nil)
+        }else{
         networkMgr.downloadImage(url: url, completion: { (data, error) -> Void in
            if let error = error {
                     completionHandler(nil, error)
@@ -60,10 +76,16 @@ class DetailsViewModel{
                 guard let data = data, error == nil else {
                     return
                 }
-                
-                    completionHandler(data, error)
+            if let downloadedImage = UIImage(data: data) {
+                self.imageCache.setObject(downloadedImage, forKey: url as NSString)
+                    
+                completionHandler(downloadedImage, error)
+            }
+            
+                    
                 
             })
+        }
     }
     
     func fetchDetailsList()  {
@@ -84,6 +106,6 @@ class DetailsViewModel{
     }
     var refreshTableView: (() -> ())?
 
-    
+   
 }
 
