@@ -10,12 +10,17 @@ import Foundation
 import UIKit
 
 class DetailsTableViewCell: UITableViewCell{
+    
+    
+    var downloadManager = AsyncImageView()
     var topics: Topics?{
         didSet{
             guard let topicItem = topics else {return}
             titleLabel.text = topicItem.title
             descLabel.text = topicItem.subTitle
-            iconImageView.image = UIImage(named: "contacts")
+        
+            downloadManager.imageFromServerURL(url: topicItem.imageHrefString)
+            iconImageView.image = downloadManager.image
         }
     }
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
@@ -92,7 +97,7 @@ class DetailsTableViewCell: UITableViewCell{
         let img = UIImageView()
         img.contentMode = .scaleAspectFit // image will never be strecthed vertially or horizontally
         img.translatesAutoresizingMaskIntoConstraints = false // enable autolayout
-        img.layer.cornerRadius = 38
+        //img.layer.cornerRadius = 38
         img.clipsToBounds = true
         return img
     }()

@@ -12,6 +12,7 @@ class CountryDetailsViewController: UIViewController {
 
     let detailsTableView = UITableView() // view
     let detailsModel = DetailsViewModel()
+    var refreshControl = UIRefreshControl()
     var tableArray: [Topics] = []
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -38,10 +39,19 @@ class CountryDetailsViewController: UIViewController {
         navigationItem.title = ""
         
         fetchDetailsAndRefreshUI()
+        refreshControl.attributedTitle = NSAttributedString(string: "Pull to refresh")
+        refreshControl.addTarget(self, action: #selector(refresh(sender:)), for: UIControl.Event.valueChanged)
+        detailsTableView.addSubview(refreshControl)
 
         
     }
+
+    @objc func refresh(sender:AnyObject) {
+       // Code to refresh table view
+        self.detailsTableView.reloadData()
+        refreshControl.removeFromSuperview()
     
+    }
     func fetchDetailsAndRefreshUI(){
         detailsModel.fetchDetailsList()
         detailsModel.refreshTableView = {
@@ -63,6 +73,8 @@ extension CountryDetailsViewController: UITableViewDataSource{
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "DetailsTableViewCell", for: indexPath) as! DetailsTableViewCell
         cell.topics = self.tableArray[indexPath.row]
+        //cell.iconImageView.image = DetailsViewModel.fetchImage()
+            //tableArray[indexPath.row].imageHrefString
                 return cell
     }
     

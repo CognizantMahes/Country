@@ -47,6 +47,25 @@ class DetailsViewModel{
     }
     
     let networkMgr = NetworkManager()
+    func imageDownloadedSuccess(){
+        self.refreshTableView?()
+    }
+    func fetchImage(url: String, completionHandler: @escaping (Data?, Error?) -> Void){
+        //networkMgr.fetchImage
+        networkMgr.downloadImage(url: url, completion: { (data, error) -> Void in
+           if let error = error {
+                    completionHandler(nil, error)
+                    return
+                }
+                guard let data = data, error == nil else {
+                    return
+                }
+                
+                    completionHandler(data, error)
+                
+            })
+    }
+    
     func fetchDetailsList()  {
         networkMgr.fetchCountryDetails(completion: { (country, error) in
             if error != nil {
